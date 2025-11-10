@@ -3,10 +3,15 @@ import logo from "../Assest/logo.png";
 import cart_icon from "../Assest/cart_icon.png";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { selectCartTotalItems } from "../../Redux/CartSlice"; // ✅ import selector
 
 function Navbar() {
   const [menu, setMenu] = useState("shop");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // ✅ Get total items from Redux
+  const totalItems = useSelector(selectCartTotalItems);
 
   return (
     <>
@@ -96,6 +101,7 @@ function Navbar() {
             </button>
           </Link>
 
+          {/* ✅ Cart with Dynamic Count */}
           <div className="relative">
             <Link to={"/cart"}>
               <img
@@ -104,9 +110,13 @@ function Navbar() {
                 className="w-7 sm:w-[30px] h-7 sm:h-[30px]"
               />
             </Link>
-            <div className="absolute -top-2 -right-3 w-[18px] h-[18px] sm:w-5 sm:h-5 flex justify-center items-center rounded-full text-[10px] sm:text-sm bg-red-600 text-white">
-              0
-            </div>
+
+            {/* Show badge only if count > 0 */}
+            {totalItems > 0 && (
+              <div className="absolute -top-2 -right-3 w-[18px] h-[18px] sm:w-5 sm:h-5 flex justify-center items-center rounded-full text-[10px] sm:text-sm bg-red-600 text-white">
+                {totalItems}
+              </div>
+            )}
           </div>
         </div>
       </div>

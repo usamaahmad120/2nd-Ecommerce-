@@ -5,6 +5,7 @@ import Offers from '../component/Offers/Offers'
 import NewCollection from '../component/NewCollect/NewCollection'
 import NewsLatter from '../component/NewsLatter/NewsLatter'
 
+
 function Shop() {
   return (
     <div>
@@ -12,7 +13,9 @@ function Shop() {
       <Popular/>
       <Offers/>
       <NewCollection/>
+      
       <NewsLatter/>
+      
     </div>
   )
 }

@@ -1,31 +1,37 @@
-import React from 'react'
-import new_collection from '../Assest/new_collections'
-import Item from '../items/Item'
+import React, { useEffect, useState } from "react";
+import Item from "../items/Item";
 
 function NewCollection() {
-   return (
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("/NewCollect.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Error fetching products:", err));
+  }, []);
+
+  return (
     <div className="my-10 w-full overflow-hidden">
-      <h1 className="text-2xl sm:text-3xl font-bold text-center text-[#171717] mb-4 rounded-2xl">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center text-[#171717] mb-4">
         NEW COLLECTION
       </h1>
       <hr className="w-24 sm:w-32 mx-auto border-[#ff4141] border-2 rounded-full mb-8" />
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-3 sm:px-6 justify-items-center"
 
->
-        {new_collection.map((item, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-3 sm:px-6 justify-items-center">
+        {products.map((item) => (
           <Item
-            key={i}
+            key={item.id}
             id={item.id}
             name={item.name}
             img={item.image}
-            old_price={item.old_price}
             new_price={item.new_price}
+            old_price={item.old_price}
           />
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default NewCollection
+export default NewCollection;

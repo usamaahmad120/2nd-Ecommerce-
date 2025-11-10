@@ -5,8 +5,14 @@ import Shop from './pages/Shop'
 import ShopCategory from './pages/ShopCategory'
 import Product from './pages/Product'
 import Cart from './pages/Cart'
-import LoginSignup from './pages/LoginSignup'
 import Footer from './component/Footer/Footer'
+import man_banner from './component/Assest/banner_mens.png'
+import women_banner from './component/Assest/banner_women.png'
+import kid_banner from './component/Assest/banner_kids.png'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import ProductCard from './component/ProductCard/ProductCard'
+
 
 
 function App() {
@@ -14,20 +20,22 @@ function App() {
    <>
 
    <div>
+    
    <BrowserRouter>
    <Navbar/>
 
    <Routes>
     <Route path='/' element ={<Shop/>} />
-    <Route path='/mens' element = {<ShopCategory />}  category = "mens"/>
-    <Route path='/womens' element = {<ShopCategory />}  category = "womens"/>
-    <Route path='/kids' element = {<ShopCategory />}  category = "kids"/>
-    <Route path='/product' element={<Product/>}>
-    <Route path=':productId' element={<Product/>}/>
-    </Route>
+    <Route path='/mens' element = {<ShopCategory  bunner = {man_banner} category = "men"/>}/>
+    <Route path='/womens' element = {<ShopCategory bunner ={women_banner} category = "women" />}/>
+    <Route path='/kids' element = {<ShopCategory bunner= {kid_banner} category = "kid"/>}/>
+      <Route path="/" element={<ProductCard/>} />
+    <Route path="/product/:ProductId" element={<Product />} />
     <Route path='/cart' element = {<Cart/>}/>
-    <Route path='/login' element ={<LoginSignup/>}/>
+    <Route path="/register" element={<Register/>} />
+      <Route path="/login" element={<Login/>} />
    </Routes>
+   
    <Footer/>
    </BrowserRouter>
    
