@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, deleteItem } from "../../Redux/CartSlice";
-import { Link } from "react-router-dom"; // ✅ import Link
+import { Link, useNavigate } from "react-router-dom"; 
 import remove_icon from "../Assest/cart_cross_icon.png";
 
 function CartItems() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ✅ moved inside component
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -159,7 +160,11 @@ function CartItems() {
               <p className="text-sm text-green-600">
                 You qualify for free shipping!
               </p>
-              <button className="bg-[#ff4141] text-white px-6 py-3 rounded hover:bg-[#e63c3c] mt-2 cursor-pointer">
+
+              <button
+                onClick={() => navigate("/checkout")}
+                className="bg-[#ff4141] text-white px-5 py-2 rounded-lg hover:bg-[#e63b3b] transition"
+              >
                 Proceed to Checkout
               </button>
             </div>

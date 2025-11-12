@@ -1,0 +1,11 @@
+[
+  { "path": "/", "component": "Shop", "title": "Shop Page" },
+  { "path": "/mens", "component": "ShopCategory", "title": "Men Collection", "props": { "bunner": "/images/banner_mens.png", "category": "men" } },
+  { "path": "/womens", "component": "ShopCategory", "title": "Women Collection", "props": { "bunner": "/images/banner_women.png", "category": "women" } },
+  { "path": "/kids", "component": "ShopCategory", "title": "Kids Collection", "props": { "bunner": "/images/banner_kids.png", "category": "kid" } },
+  { "path": "/product/:ProductId", "component": "Product", "title": "Product Details" },
+  { "path": "/cart", "component": "Cart", "title": "Cart Page" },
+  { "path": "/checkout", "component": "Checkout", "title": "Checkout Page" },
+  { "path": "/register", "component": "Register", "title": "Register" },
+  { "path": "/login", "component": "Login", "title": "Login" }
+]

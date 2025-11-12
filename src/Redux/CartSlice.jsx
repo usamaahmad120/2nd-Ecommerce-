@@ -41,32 +41,38 @@ const cartSlice = createSlice({
 
     removeFromCart: (state, action) => {
       const { productId, selectedImage, selectedSize } = action.payload;
-      state.cartItems = state.cartItems
-        .map((item) =>
-          item.id === productId &&
-          item.selectedImage === selectedImage &&
-          item.selectedSize === selectedSize
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0);
 
-      // Increase stock when removed
-      const removedItem = state.cartItems.find(
+      const existingItem = state.cartItems.find(
         (item) =>
           item.id === productId &&
           item.selectedImage === selectedImage &&
           item.selectedSize === selectedSize
       );
-      if (removedItem) {
-        state.productsStock[productId] += 1;
-      } else {
-        state.productsStock[productId] += 1;
+
+      if (existingItem) {
+        existingItem.quantity -= 1;
+
+        if (existingItem.quantity <= 0) {
+          state.cartItems = state.cartItems.filter(
+            (item) =>
+              !(
+                item.id === productId &&
+                item.selectedImage === selectedImage &&
+                item.selectedSize === selectedSize
+              )
+          );
+        }
+
+        // Increase stock back
+        state.productsStock[productId] =
+          (state.productsStock[productId] || 0) + 1;
       }
     },
 
     deleteItem: (state, action) => {
-      const { productId, selectedImage, selectedSize, quantity } = action.payload;
+      const { productId, selectedImage, selectedSize, quantity = 1 } =
+        action.payload;
+
       state.cartItems = state.cartItems.filter(
         (item) =>
           !(
@@ -77,15 +83,27 @@ const cartSlice = createSlice({
       );
 
       // Return deleted quantity back to stock
-      state.productsStock[productId] += quantity;
+      state.productsStock[productId] =
+        (state.productsStock[productId] || 0) + quantity;
+    },
+
+    // ✅ NEW: Clear cart after successful order
+    clearCart: (state) => {
+      state.cartItems = [];
     },
   },
 });
 
-// Actions
-export const { addToCart, removeFromCart, deleteItem, setProductsStock } = cartSlice.actions;
+// ✅ Export actions
+export const {
+  addToCart,
+  removeFromCart,
+  deleteItem,
+  setProductsStock,
+  clearCart,
+} = cartSlice.actions;
 
-// Selectors
+// ✅ Selectors
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalItems = (state) =>
   state.cart.cartItems.reduce((total, item) => total + item.quantity, 0);

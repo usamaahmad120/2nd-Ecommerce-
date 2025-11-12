@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from "react";
+import { ReactLib } from "../ReactLib";
+
+const { useState, useEffect } = ReactLib;
+import { motion } from "framer-motion";
 import drop_down from "../component/Assest/dropdown_icon.png";
-import Item from "../component/items/Item";
+import { componentMapUi } from "../ComponentMapUi";
 
 function ShopCategory(props) {
   const [products, setProducts] = useState([]);
   const [sortType, setSortType] = useState("default");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+ 
   useEffect(() => {
+    setProducts([]); // clear previous products
     fetch("/products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Failed to fetch products:", err));
-  }, []);
 
-  // 🔹 Sorting Logic
+    window.scrollTo(0, 0); // scroll to top on category change
+  }, [props.category]);
+
+  // 🔹 Sorting logic
   const sortedProducts = [...products]
     .filter((item) => props.category === item.category)
     .sort((a, b) => {
@@ -24,18 +31,13 @@ function ShopCategory(props) {
       return 0;
     });
 
-  // 🔹 Dropdown Toggle Handler
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // 🔹 Dropdown Option Select Handler
+  // 🔹 Dropdown toggle & handler
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const handleSortChange = (type) => {
     setSortType(type);
     setIsDropdownOpen(false);
   };
 
-  // 🔹 Get Label for Current Sort
   const getSortLabel = () => {
     switch (sortType) {
       case "lowToHigh":
@@ -49,12 +51,23 @@ function ShopCategory(props) {
     }
   };
 
+
+
+  // import items here
+
+  const Item = componentMapUi.Item;
+
   return (
     <div className="flex flex-col w-[90%] md:w-[85%] m-auto py-10">
-      <img
+      {/* Banner */}
+      <motion.img
+        key={props.category} // animation restart on category change
         src={props.bunner}
-        alt=""
+        alt="Banner"
         className="w-full object-cover rounded-2xl mb-8"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       />
 
       {/* Header Section */}
@@ -64,7 +77,7 @@ function ShopCategory(props) {
           {sortedProducts.length} products
         </p>
 
-        {/* 🔹 Sort Dropdown */}
+        {/* Sort Dropdown */}
         <div className="relative">
           <div
             onClick={toggleDropdown}
@@ -105,25 +118,35 @@ function ShopCategory(props) {
         </div>
       </div>
 
-      {/* Product Grid */}
+      {/* Product Grid with animation */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
         {sortedProducts.map((item, i) => (
-          <Item
-            key={i}
-            id={item.id}
-            name={item.name}
-            img={item.image}
-            old_price={item.old_price}
-            new_price={item.new_price}
-          />
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+          >
+            <Item
+              id={item.id}
+              name={item.name}
+              img={item.image}
+              old_price={item.old_price}
+              new_price={item.new_price}
+            />
+          </motion.div>
         ))}
       </div>
 
       {/* Explore More Button */}
       <div className="mt-12 flex justify-center">
-        <button className="px-10 py-4 border border-gray-400 text-gray-700 font-semibold rounded-full hover:bg-black hover:text-white transition duration-300">
+        <motion.button
+          className="px-10 py-4 border border-gray-400 text-gray-700 font-semibold rounded-full hover:bg-black hover:text-white transition duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           Explore More
-        </button>
+        </motion.button>
       </div>
     </div>
   );

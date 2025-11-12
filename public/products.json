@@ -8,7 +8,15 @@
     "image": "/images/product_1.png",
     "new_price": 50.0,
     "old_price": 80.5,
-    "stock": 6
+    "stock": 6,
+     "reviews": [
+    { "user": "Alice", "rating": 1, "comment": "Very comfortable!" },
+    { "user": "Bob", "rating": 1, "comment": "Nice fit." },
+    { "user": "Alice", "rating": 5, "comment": "Very comfortable!" },
+    { "user": "Bob", "rating": 2, "comment": "Nice fit." },
+    { "user": "Alice", "rating": 5, "comment": "Very comfortable!" },
+    { "user": "Bob", "rating": 1, "comment": "Nice fit." }
+  ]
   },
   {
     "id": 2,
@@ -19,7 +27,11 @@
     "image": "/images/product_2.png",
     "new_price": 85.0,
     "old_price": 120.5,
-    "stock": 20
+    "stock": 20,
+     "reviews": [
+    { "user": "Alice", "rating": 5, "comment": "Very comfortable!" },
+    { "user": "Bob", "rating": 4, "comment": "Nice fit." }
+  ]
   },
   {
     "id": 3,
