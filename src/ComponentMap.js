@@ -6,6 +6,7 @@ import Cart from "./Pages/Cart";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Checkout from "./component/checkOut/CheckOut";
+import SaleDashboard from "./pages/SaleDashboard";
 
 export const componentMap = {
   Shop,
@@ -15,4 +16,5 @@ export const componentMap = {
   Register,
   Login,
   Checkout,
+  SaleDashboard,
 };

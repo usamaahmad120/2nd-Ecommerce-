@@ -15,7 +15,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="flex justify-around items-center px-4 py-3 shadow-md bg-white ">
+      <div className="flex justify-around items-center px-4 py-3 shadow-md bg-white">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="logo" className="w-[45px] sm:w-[50px]" />
@@ -43,6 +43,7 @@ function Navbar() {
               : "hidden"
           } md:flex md:static md:flex-row items-center gap-10 lg:gap-[50px] text-[#626262] text-base sm:text-lg font-medium`}
         >
+          {/* Shop */}
           <li
             className="flex flex-col justify-center items-center gap-2 cursor-pointer"
             onClick={() => {
@@ -55,6 +56,8 @@ function Navbar() {
               <hr className="border-none w-[80%] h-[3px] rounded-lg bg-[#FF4141]" />
             )}
           </li>
+
+          {/* Mens */}
           <li
             className="flex flex-col justify-center items-center gap-2 cursor-pointer"
             onClick={() => {
@@ -67,6 +70,8 @@ function Navbar() {
               <hr className="border-none w-[80%] h-[3px] rounded-lg bg-[#FF4141]" />
             )}
           </li>
+
+          {/* Womens */}
           <li
             className="flex flex-col justify-center items-center gap-2 cursor-pointer"
             onClick={() => {
@@ -79,6 +84,8 @@ function Navbar() {
               <hr className="border-none w-[80%] h-[3px] rounded-lg bg-[#FF4141]" />
             )}
           </li>
+
+          {/* Kids */}
           <li
             className="flex flex-col justify-center items-center gap-2 cursor-pointer"
             onClick={() => {
@@ -88,6 +95,20 @@ function Navbar() {
           >
             <Link to={"/kids"}>Kids</Link>
             {menu === "kids" && (
+              <hr className="border-none w-[80%] h-[3px] rounded-lg bg-[#FF4141]" />
+            )}
+          </li>
+
+          {/* ✅ Sales (new menu item) */}
+          <li
+            className="flex flex-col justify-center items-center gap-2 cursor-pointer"
+            onClick={() => {
+              setMenu("sales");
+              setIsMenuOpen(false);
+            }}
+          >
+            <Link to={"/sales"}>Sales</Link>
+            {menu === "sales" && (
               <hr className="border-none w-[80%] h-[3px] rounded-lg bg-[#FF4141]" />
             )}
           </li>
@@ -111,7 +132,6 @@ function Navbar() {
               />
             </Link>
 
-            {/* Show badge only if count > 0 */}
             {totalItems > 0 && (
               <div className="absolute -top-2 -right-3 w-[18px] h-[18px] sm:w-5 sm:h-5 flex justify-center items-center rounded-full text-[10px] sm:text-sm bg-red-600 text-white">
                 {totalItems}
