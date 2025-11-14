@@ -1,5 +1,5 @@
 // ✅ ComponentMap.js
-import Shop from "./pages/Shop"
+import Shop from "./Pages//Shop";
 import ShopCategory from "./pages/ShopCategory";
 import Product from "./pages/Product";
 import Cart from "./Pages/Cart";
